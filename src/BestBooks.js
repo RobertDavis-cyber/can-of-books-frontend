@@ -34,7 +34,17 @@ class BestBooks extends React.Component {
       console.log('There is an error: ', err);
     }
   }
+ addBook = async () => {
+  try {
+    let bookAdded = await axios.post(`http://localhost:3001/books`);
+    this.setState({
+      books
+    })
 
+  } catch {
+
+  }
+ }
 
   // componentDidMount = () => {
   //   this.bookData();
