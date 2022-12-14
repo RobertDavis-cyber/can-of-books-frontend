@@ -2,14 +2,17 @@ import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './App.css';
 import BestBooks from './BestBooks.js';
-import About from "./About.js"
+import About from "./About.js";
+import Header from './Header.js';
+import Footer from './Footer';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 class App extends React.Component {
    render() {
     return (
       <>
       <BrowserRouter>
-        {/* <Header /> */}
+        <Header />
         <Routes>
             <Route 
               exact path="/"
@@ -21,6 +24,7 @@ class App extends React.Component {
               
             </Route>
           </Routes>
+          <Footer />
           /</BrowserRouter>
           </>
     );
