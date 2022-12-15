@@ -1,3 +1,7 @@
+## "Can of Books" App
+
+# Author: created by Robert and Sharmarke
+
 Logistical:
 
 
@@ -50,3 +54,20 @@ Just address the situation, we are adults.
 How will you approach each other and the challenge of building an application knowing that it is impossible for two people to be at the exact same place in understanding and skill level?
 
 Work as a team, make a combination to adapt to what one person wants to put.
+
+
+## Estimates
+
+## Lab 12
+
+Name of feature: Add server code to handle `PUT` requests to a `/book/:id` route. Return the updated book.
+
+Estimate of time needed to complete:
+
+Start time: 1PM
+
+Finish time: 6pm
+
+Actual time needed to complete: 6 hours
+
+
