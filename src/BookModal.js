@@ -1,11 +1,12 @@
 import React from 'react';
 import { Button, Modal, Form } from 'react-bootstrap';
+// import Form from 'react-bootstrap/Form';
 
 class BookModal extends React.Component {
     render() {
         return (
             <div>
-                <Modal show={this.props.isModalShown} onHide={this.props.handleClosedModal}>
+                <Modal show={this.props.show} onHide={this.props.handleClosedModal}>
                     <Modal.Header closeButton>
                         <Modal.Title>add book</Modal.Title>
                     </Modal.Header>
