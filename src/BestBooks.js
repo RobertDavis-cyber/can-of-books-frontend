@@ -2,6 +2,8 @@ import React from 'react';
 import axios from 'axios';
 import Button from 'react-bootstrap/Button';
 import Carousel from 'react-bootstrap/Carousel';
+import BookModal from './BookModal';
+import UpdateBooks from './updateBooks';
 
 class BestBooks extends React.Component {
   constructor() {
@@ -9,7 +11,9 @@ class BestBooks extends React.Component {
     this.state = {
       books: [],
       search: '',
-      isModalShown: false
+      isModalShown: false,
+      showUpdateModal: false,
+      bookToUpdate: null
     }
   }
   componentDidMount = () => {
@@ -28,11 +32,16 @@ class BestBooks extends React.Component {
       isModalShown: false,
     })
   }
+  OpenUpdateModal = (book) => this.setState({ showUpdateModal: true, bookToUpdate:book})
+  closeUpdateModal = () => this.setState({ showUpdateModal: false, bookToUpdate: null})
+    
+  
 
   bookData = async () => {
     try {
+      console.log('fetching books')
       //  let bookData = await axios.get(`${process.env.MONGODB_URL}/books`);
-      let bookData = await axios.get("https://can-of-books-yido.onrender.com/books");
+      let bookData = await axios.get(`${process.env.REACT_APP_SERVER}/books`);
       console.log(bookData)
       this.setState({
         books: bookData.data,
@@ -66,12 +75,21 @@ class BestBooks extends React.Component {
     }
   }
 
+  updateRequest = async (book) => {
+    console.log(book);
+    let response = await axios.put(process.env.REACT_APP_SERVER + `/books/${book._id}`, book);
+    let updateBooks = response.data;
+    console.log(this.state.books, updateBooks);
+
+    this.bookData();
+  }
+
   handleChange = (e) => {
     console.log('hand change running', e.traget.value)
     this.setState({ search: e.target.value });
   }
 
-  
+
 
   render() {
     console.log(this.state)
@@ -100,6 +118,12 @@ class BestBooks extends React.Component {
                     >
                       Delete the book!
                     </Button>
+                    <Button
+                    varient="update"
+                    onClick={() => this.OpenUpdateModal(book)}
+                    >
+                      Edit a book entry!
+                    </Button>
                   </Carousel.Caption>
                 </Carousel.Item>
               )
@@ -108,11 +132,19 @@ class BestBooks extends React.Component {
 
 
 
-
-
         ) : (
           <h3>No books found!</h3>)
-      }
+        }
+
+        <Button onClick={this.showModal}>
+Add a book.
+        </Button>
+        <BookModal show={this.state.isModalShown} handleClosedModal={this.closeModal}/>
+        {this.state.bookToUpdate?
+        <UpdateBooks show={this.state.showUpdateModal} handleClosedModal={this.closeUpdateModal} book={this.state.bookToUpdate} handleUpdate={this.updateRequest}/>
+:null
+        }
+
 
 
       </div>
