@@ -1,3 +1,7 @@
+* {
+  background-image: url(src/lib.png)
+}
+
 .App {
   text-align: center;
 }
