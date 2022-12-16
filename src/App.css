@@ -4,6 +4,7 @@
 
 .App {
   text-align: center;
+  background-image: url(./lib.png);
 }
 
 .App-logo {
