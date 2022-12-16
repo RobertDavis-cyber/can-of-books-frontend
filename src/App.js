@@ -6,9 +6,33 @@ import About from "./About.js";
 import Header from './Header.js';
 import Footer from './Footer';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { withAuth0 } from '@auth0/auth0-react';
+import AuthButtons from './auth/AuthButtons';
+import axios from 'axios';
 
 class App extends React.Component {
-   render() {
+   
+  request = async () => {
+    let res = await this.props.auth0.getIdTokenClaims();
+    let token = res.__raw;
+    console.log(token);
+
+    let request = {
+      method: 'GET',
+      url: 'http://localhost:3001/test',
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    }
+
+    let response = await axios(request);
+    console.log(response.data);
+  }
+  
+  render() {
+    let auth0 = this.props.auth0;
+    console.log(auth0);
+
     return (
       <>
       <BrowserRouter>
@@ -26,10 +50,13 @@ class App extends React.Component {
           </Routes>
           <Footer />
           /</BrowserRouter>
+          <AuthButtons />
+          {auth0.isAuthenticated ? <button onClick={this.request}>Make request</button> : null}
           </>
     );
   }
 }
 
-export default App;
+
+export default withAuth0(App);
 
